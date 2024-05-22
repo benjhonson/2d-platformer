@@ -1,0 +1,59 @@
+[gd_scene load_steps=10 format=3 uid="uid://deh1rvpqcfg1i"]
+
+[ext_resource type="Texture2D" uid="uid://dolgrh7kb7rqd" path="res://Sunny-land-files/Graphical Assets/extras/Idle/Idle-Sheet.png" id="1_37ida"]
+[ext_resource type="Script" path="res://vendor.gd" id="1_l8ppo"]
+[ext_resource type="PackedScene" uid="uid://d4brfc36hfjgt" path="res://Shop.tscn" id="2_2nyp6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8om7d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbic4"]
+atlas = ExtResource("1_37ida")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8fn8"]
+atlas = ExtResource("1_37ida")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vbajq"]
+atlas = ExtResource("1_37ida")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_br3v8"]
+atlas = ExtResource("1_37ida")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2dtpd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbic4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8fn8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vbajq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_br3v8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Vendor" type="Area2D"]
+position = Vector2(392, 40)
+script = ExtResource("1_l8ppo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_8om7d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+process_mode = 3
+sprite_frames = SubResource("SpriteFrames_2dtpd")
+animation = &"idle"
+
+[node name="Shop" parent="." instance=ExtResource("2_2nyp6")]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

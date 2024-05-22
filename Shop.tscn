@@ -1,0 +1,202 @@
+[gd_scene load_steps=12 format=3 uid="uid://d4brfc36hfjgt"]
+
+[ext_resource type="Script" path="res://Shop.gd" id="1_hiwb2"]
+[ext_resource type="Texture2D" uid="uid://crf3nh4i0y8i4" path="res://Sunny-land-files/Graphical Assets/extras/boost.png" id="2_hjpw5"]
+
+[sub_resource type="Animation" id="Animation_xcj76"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -300)]
+}
+
+[sub_resource type="Animation" id="Animation_ylda8"]
+resource_name = "TransIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -1200), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fcd1v"]
+resource_name = "TransOut"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 1200)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y0baa"]
+_data = {
+"RESET": SubResource("Animation_xcj76"),
+"TransIn": SubResource("Animation_ylda8"),
+"TransOut": SubResource("Animation_fcd1v")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g12op"]
+atlas = ExtResource("2_hjpw5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_po4wi"]
+atlas = ExtResource("2_hjpw5")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wy6um"]
+atlas = ExtResource("2_hjpw5")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sjymo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g12op")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_po4wi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wy6um")
+}],
+"loop": true,
+"name": &"2X JUMP",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_wp8jm"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	text = \"Gold: \" + str(Game.Gold)
+"
+
+[node name="Shop" type="CanvasLayer"]
+process_mode = 3
+offset = Vector2(0, -300)
+transform = Transform2D(1, 0, 0, 1, 0, -300)
+script = ExtResource("1_hiwb2")
+
+[node name="Anim1" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y0baa")
+}
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 198.0
+offset_top = 113.0
+offset_right = 1676.0
+offset_bottom = 905.0
+
+[node name="close" type="Button" parent="."]
+offset_left = 1494.0
+offset_top = 148.0
+offset_right = 1656.0
+offset_bottom = 227.0
+text = "Close"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(928, 349)
+scale = Vector2(7.05469, 7.38281)
+sprite_frames = SubResource("SpriteFrames_sjymo")
+animation = &"2X JUMP"
+
+[node name="Name" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 407.0
+offset_top = 144.0
+offset_right = 661.0
+offset_bottom = 170.0
+scale = Vector2(4.25588, 3.4165)
+text = "2X JUMP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Desc" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 506.0
+offset_right = 548.0
+offset_bottom = 565.0
+scale = Vector2(4.25622, 4.11873)
+text = "Allows you to jump twice
+Cost:50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="next" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 1264.0
+offset_top = 430.0
+offset_right = 1287.0
+offset_bottom = 467.0
+rotation = 3.1369
+scale = Vector2(4.2, 3.8)
+text = "<"
+
+[node name="buy" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 854.0
+offset_top = 760.0
+offset_right = 934.0
+offset_bottom = 791.0
+scale = Vector2(2.41549, 3.045)
+text = "BUY"
+
+[node name="prev" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 704.0
+offset_top = 435.0
+offset_right = 727.0
+offset_bottom = 472.0
+rotation = 3.14005
+scale = Vector2(4.2, 3.8)
+text = ">"
+
+[node name="Gold" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 209.0
+offset_top = 127.0
+offset_right = 249.0
+offset_bottom = 150.0
+scale = Vector2(2.35599, 2.22082)
+text = "Gold"
+script = SubResource("GDScript_wp8jm")
+
+[connection signal="pressed" from="close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="Control/next" to="." method="_on_next_pressed"]
+[connection signal="pressed" from="Control/buy" to="." method="_on_buy_pressed"]
+[connection signal="pressed" from="Control/prev" to="." method="_on_prev_pressed"]
