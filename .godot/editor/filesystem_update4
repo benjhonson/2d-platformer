@@ -1,0 +1,11 @@
+res://main.tscn
+res://Boss/pig.gd
+res://Player/Player.gd
+res://world.tscn
+res://Player/Player.tscn
+res://bg.tscn
+res://Mobs/frog.tscn
+res://Collection/Cherry.tscn
+res://Shop.tscn
+res://vendor.tscn
+res://Boss/pig.tscn
